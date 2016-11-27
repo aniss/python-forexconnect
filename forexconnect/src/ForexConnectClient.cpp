@@ -359,6 +359,7 @@ boost::python::list ForexConnectClient::getTradesForPython()
 bool ForexConnectClient::createOrder(
   const std::string& instrument,
   const std::string& buysell,
+  int amount,
   const std::string& entryRate,
   const std::string& stopRate,
   const std::string& limitRate,
