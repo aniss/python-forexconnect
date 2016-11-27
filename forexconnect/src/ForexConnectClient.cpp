@@ -408,7 +408,7 @@ bool ForexConnectClient::createOrder(
 
   if (!expDate.empty()) {
     valuemap->setString(TimeInForce, O2G2::TIF::GTD);
-    // valuemap->setString(ExpireDateTime, expDate);
+    valuemap->setString(ExpireDateTime, "");
   }
 
   O2G2Ptr<IO2GRequest> request = mpRequestFactory->createOrderRequest(valuemap);
