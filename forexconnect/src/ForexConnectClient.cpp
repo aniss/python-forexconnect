@@ -356,6 +356,80 @@ boost::python::list ForexConnectClient::getTradesForPython()
     return vector_to_python_list(getTrades());
 }
 
+bool ForexConnectClient::createOrder(
+  const std::string& instrument,
+  const std::string& buysell,
+  const std::string& entryRate,
+  const std::string& stopRate,
+  const std::string& limitRate,
+  const std::string& trailStep,
+  const std::string& expDate) {
+
+  if (buysell != O2G2::Sell && buysell != O2G2::Buy) {
+    return false;
+  }
+
+  std::map<std::string, std::string> offers = getOffers();
+  std::string offerID;
+
+  std::map<std::string, std::string>::const_iterator offer_itr = offers.find(instrument);
+
+  if (offer_itr != offers.end()) {
+    offerID = offer_itr->second;
+  } else {
+    BOOST_LOG_TRIVIAL(error) << "Could not find offer row for instrument" << instrument;
+    return false;
+  }
+
+  O2G2Ptr<IO2GTradingSettingsProvider> tradingSettingsProvider = mpLoginRules->getTradingSettingsProvider();
+  int iBaseUnitSize = tradingSettingsProvider->getBaseUnitSize(instrument.c_str(), mpAccountRow);
+  O2G2Ptr<IO2GValueMap> valuemap = mpRequestFactory->createValueMap();
+  valuemap->setString(Command, O2G2::Commands::CreateOrder);
+  valuemap->setString(OrderType, O2G2::Orders::StopEntry);
+  valuemap->setString(AccountID, mAccountID.c_str());
+  valuemap->setString(OfferID, offerID.c_str());
+  valuemap->setString(BuySell, buysell.c_str());
+  valuemap->setDouble(Rate, atof(entryPrice.c_str()));
+  valuemap->setInt(Amount, amount * iBaseUnitSize);
+  valuemap->setString(CustomID, "StopEntryOrder");
+
+  if (!stopRate.empty()) {
+    valuemap->setDouble(RateStop, atof(stopRate.c_str()));
+  }
+
+  if (!limitRate.empty()) {
+    valuemap->setDouble(RateLimit, atof(limitRate.c_str());
+  }
+
+  if (!trailStep.empty()) {
+    valuemap->setInt(TrailStepStop, atoi(atotrailStep.c_str()))
+  }
+
+  if (!expDate.empty()) {
+    valuemap->setString(TimeInForce, O2G2::TIF::GTD);
+    valuemap->setString(ExpireDateTime, expDate);
+  }
+
+  O2G2Ptr<IO2GRequest> request = mpRequestFactory->createOrderRequest(valuemap);
+
+  if (!requet) {
+    BOOST_LOG_TRIVIAL(error) << mpRequestFactory->getLastError();
+    return false;
+  }
+
+  mpResponseListener->setRequestID(request->getRequestID());
+  mpSession->sendRequest(request);
+
+  if (mpResponseListener->waitEvents()) {
+    Sleep(1000);
+    BOOST_LOG_TRIVIAL(info) << "Done!";
+    return true;
+  }
+
+  BOOST_LOG_TRIVIAL(error) << "Response waiting timeout expired";
+  return false;
+}
+
 bool ForexConnectClient::openPosition(const std::string& instrument,
 				      const std::string& buysell,
 				      int amount)

@@ -202,6 +202,7 @@ BOOST_PYTHON_MODULE(forexconnect)
 	.def("get_trades", &ForexConnectClient::getTradesForPython)
 	.def("get_offers", &ForexConnectClient::getOffersForPython)
 	.def("is_connected", &ForexConnectClient::isConnected)
+  .def("createOrder", &ForexConnectClient::createOrder)
 	.def("open_position", &ForexConnectClient::openPosition,
 	     ":param str instrument: type of quotes(ex. 'EUR/USD')\n:param str buysell: buy or sell\n:param int amount: amount of position")
 	.def("close_position", &ForexConnectClient::closePosition,

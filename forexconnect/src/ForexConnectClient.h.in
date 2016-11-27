@@ -87,7 +87,16 @@ namespace pyforexconnect
 	~ForexConnectClient();
 	std::vector<TradeInfo> getTrades();
 	boost::python::list getTradesForPython();
-	bool openPosition(const std::string& instrument,
+
+  bool createOrder(const std::string& instrument,
+        const std::string& buysell,
+        const std::string& entryRate,
+        const std::string& stopRate = std::string(""),
+        const std::string& limitRate = std::string(""),
+        const std::string& trailStep = std::string(""),
+        const std::string& expDate = std::string(""))
+
+  bool openPosition(const std::string& instrument,
 			  const std::string& buysell,
 			  int amount);
 	bool closePosition(const std::string& tradeID);
