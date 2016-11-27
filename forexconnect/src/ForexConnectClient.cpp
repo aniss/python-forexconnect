@@ -402,7 +402,7 @@ bool ForexConnectClient::createOrder(
   }
 
   if (!trailStep.empty()) {
-    valuemap->setInt(TrailStepStop, atoi(atotrailStep.c_str()));
+    valuemap->setInt(TrailStepStop, atoi(trailStep.c_str()));
   }
 
   if (!expDate.empty()) {
