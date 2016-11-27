@@ -412,7 +412,7 @@ bool ForexConnectClient::createOrder(
 
   O2G2Ptr<IO2GRequest> request = mpRequestFactory->createOrderRequest(valuemap);
 
-  if (!requet) {
+  if (!request) {
     BOOST_LOG_TRIVIAL(error) << mpRequestFactory->getLastError();
     return false;
   }
