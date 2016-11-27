@@ -422,7 +422,7 @@ bool ForexConnectClient::createOrder(
   mpSession->sendRequest(request);
 
   if (mpResponseListener->waitEvents()) {
-    Sleep(1000);
+    // Sleep(1000);
     BOOST_LOG_TRIVIAL(info) << "Done!";
     return true;
   }
