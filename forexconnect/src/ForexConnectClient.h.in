@@ -91,10 +91,10 @@ namespace pyforexconnect
   bool createOrder(const std::string& instrument,
         const std::string& buysell,
         const std::string& entryRate,
-        const std::string& stopRate = std::string(""),
-        const std::string& limitRate = std::string(""),
-        const std::string& trailStep = std::string(""),
-        const std::string& expDate = std::string(""));
+        const std::string& stopRate,
+        const std::string& limitRate,
+        const std::string& trailStep,
+        const std::string& expDate);
 
   bool openPosition(const std::string& instrument,
 			  const std::string& buysell,
