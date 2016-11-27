@@ -94,7 +94,7 @@ namespace pyforexconnect
         const std::string& stopRate = std::string(""),
         const std::string& limitRate = std::string(""),
         const std::string& trailStep = std::string(""),
-        const std::string& expDate = std::string(""))
+        const std::string& expDate = std::string(""));
 
   bool openPosition(const std::string& instrument,
 			  const std::string& buysell,
