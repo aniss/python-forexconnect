@@ -389,7 +389,7 @@ bool ForexConnectClient::createOrder(
   valuemap->setString(AccountID, mAccountID.c_str());
   valuemap->setString(OfferID, offerID.c_str());
   valuemap->setString(BuySell, buysell.c_str());
-  valuemap->setDouble(Rate, atof(entryPrice.c_str()));
+  valuemap->setDouble(Rate, atof(entryRate.c_str()));
   valuemap->setInt(Amount, amount * iBaseUnitSize);
   valuemap->setString(CustomID, "StopEntryOrder");
 
@@ -398,11 +398,11 @@ bool ForexConnectClient::createOrder(
   }
 
   if (!limitRate.empty()) {
-    valuemap->setDouble(RateLimit, atof(limitRate.c_str());
+    valuemap->setDouble(RateLimit, atof(limitRate.c_str()));
   }
 
   if (!trailStep.empty()) {
-    valuemap->setInt(TrailStepStop, atoi(atotrailStep.c_str()))
+    valuemap->setInt(TrailStepStop, atoi(atotrailStep.c_str()));
   }
 
   if (!expDate.empty()) {
