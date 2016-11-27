@@ -364,7 +364,7 @@ bool ForexConnectClient::createOrder(
   const std::string& stopRate,
   const std::string& limitRate,
   const std::string& trailStep,
-  const char *expDate) {
+  const std::string& expDate) {
 
   if (buysell != O2G2::Sell && buysell != O2G2::Buy) {
     return false;
@@ -408,7 +408,7 @@ bool ForexConnectClient::createOrder(
 
   if (!expDate.empty()) {
     valuemap->setString(TimeInForce, O2G2::TIF::GTD);
-    valuemap->setString(ExpireDateTime, expDate);
+    valuemap->setString(ExpireDateTime, expDate.c_str());
   }
 
   O2G2Ptr<IO2GRequest> request = mpRequestFactory->createOrderRequest(valuemap);
