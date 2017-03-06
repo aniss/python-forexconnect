@@ -99,7 +99,8 @@ namespace pyforexconnect
 
   bool openPosition(const std::string& instrument,
 			  const std::string& buysell,
-			  int amount);
+			  int amount,
+			  double stopRate);
 	bool closePosition(const std::string& tradeID);
 	double getBid(const std::string& instrument);
 	double getAsk(const std::string& instrument);

@@ -433,7 +433,8 @@ bool ForexConnectClient::createOrder(
 
 bool ForexConnectClient::openPosition(const std::string& instrument,
 				      const std::string& buysell,
-				      int amount)
+				      int amount,
+                      double stopRate)
 {
     if (buysell != O2G2::Sell && buysell != O2G2::Buy)
     {
@@ -459,6 +460,7 @@ bool ForexConnectClient::openPosition(const std::string& instrument,
     valuemap->setString(BuySell, buysell.c_str());
     valuemap->setInt(Amount, amount * iBaseUnitSize);
     valuemap->setString(TimeInForce, O2G2::TIF::IOC);
+    valuemap->setDouble(RateStop, stopRate);
     valuemap->setString(CustomID, "TrueMarketOrder");
     O2G2Ptr<IO2GRequest> request = mpRequestFactory->createOrderRequest(valuemap);
     if (!request)
