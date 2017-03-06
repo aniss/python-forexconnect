@@ -434,7 +434,7 @@ bool ForexConnectClient::createOrder(
 bool ForexConnectClient::openPosition(const std::string& instrument,
 				      const std::string& buysell,
 				      int amount,
-                      double stopRate)
+                      float stopRate)
 {
     if (buysell != O2G2::Sell && buysell != O2G2::Buy)
     {
